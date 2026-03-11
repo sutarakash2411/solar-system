@@ -33,11 +33,15 @@ jobs:
         run: |
           npm install
 
-      # - name: Run unit tests
-      #   run: |
-      #     npm test
+      - name: Run unit tests
+        run: |
+          npm test
 
       - name: Archive test results
+        if : failure()  # Only upload test results if the tests fail 
+        #failure() is a GitHub Actions function that returns true 
+        #if any of the previous steps in the job have failed. 
+        #By using this condition, you can ensure that the test results are only uploaded when there is a failure, which can help save storage space and reduce clutter in your artifacts.
         uses: actions/upload-artifact@v4
         with:
           name: Mocha Test Results
