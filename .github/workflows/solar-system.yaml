@@ -42,3 +42,28 @@ jobs:
         with:
           name: Mocha Test Results
           path: test-results.xml
+  code-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies npm
+        run: |
+          npm install
+
+      - name: Run code coverage
+        run: |
+          npm run coverage
+
+      - name: Upload code coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Code Coverage Report
+          path: coverage/cobertura-coverage.xml
+        
